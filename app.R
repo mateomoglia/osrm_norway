@@ -1,12 +1,20 @@
-# Make a shiny app ---------------------------------------------------
+# Load the librairies ------------------------------------------------
 
 library(leaflet)
+library(sf)
+library(shiny)
+library(dplyr)
 
-# Shiny app to display interactive map
+# Load the data ------------------------------------------------------
+
+norway_cities = read_sf("output/norway_cities.shp")
+route         = read_sf("output/route.shp")
+
+# Shiny app to display interactive map -------------------------------
+
 ui = fluidPage(
   leafletOutput("map")
 )
-
 
 server = function(input, output, session) {
   # Reactive values to store selected cities
@@ -14,7 +22,7 @@ server = function(input, output, session) {
   route_data = reactiveVal(NULL)
   
   # Render leaflet map
-  output$map =renderLeaflet({
+  output$map = renderLeaflet({
     leaflet() %>%
       addTiles() %>%
       addMarkers(
