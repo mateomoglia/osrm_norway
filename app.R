@@ -13,7 +13,7 @@ route         = read_sf("output/route.shp")
 # Shiny app to display interactive map -------------------------------
 
 ui = fluidPage(
-  leafletOutput("map")
+  leafletOutput("map", height = "800px")
 )
 
 server = function(input, output, session) {

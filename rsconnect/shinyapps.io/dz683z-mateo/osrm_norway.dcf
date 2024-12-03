@@ -1,0 +1,10 @@
+name: osrm_norway
+title:
+username: dz683z-mateo
+account: dz683z-mateo
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13507453
+bundleId: 9454051
+url: https://dz683z-mateo.shinyapps.io/osrm_norway/
+version: 1

@@ -10,11 +10,18 @@ project = "/Users/mmoglia/Dropbox/research/phd/osrm_norway"
 # Load required packages ---------------------------------------------
 
 pacman::p_load(osrm,dplyr,osmdata,ggplot2,sf,leaflet,shiny,rsconnect)
-rsconnect::setAccountInfo(name='dz683z-mateo', token='78D48D02F03E1272C309A4C1EB0C61BF', secret='S9fCWMSzhxr1OYffOSoz9TYiE8dMqVb/uj8Uvpb5')
 
 # Set-up origin and destination --------------------------------------
 
+  #---------------
+  # Open a map of Norway for dataviz
+  #---------------
+
 norway_shp = read_sf(paste0(project,"/raw/no_100km.shp"))
+
+  #---------------
+  # Open a subsample of cities
+  #---------------
 
 norway_cities <- data.frame(
   city = c("Oslo", "Bergen", "Stavanger", "Trondheim", "Drammen", "Fredrikstad", "Kristiansand", "Tromsø", "Sandnes", "Ålesund"),
@@ -23,6 +30,10 @@ norway_cities <- data.frame(
 ) %>%
   st_as_sf(coords = c("lon","lat"), crs = 4326) %>%
   st_transform(crs = 4258)
+
+  #---------------
+  # Check on a plot
+  #---------------
 
 ggplot() +
   geom_sf(data = norway_shp, fill = "white") +
@@ -35,7 +46,17 @@ travel_time = osrmTable(loc = norway_cities)
 
 # Extract the paths --------------------------------------------------
 
+  #---------------
+  # Create an empty object that we will feed
+  #---------------
+
 route = data.frame()
+
+  #---------------
+  # For each cities in norway_cities, compute the path between this
+  # city and another city
+  #---------------
+
 for(x in 1:length(norway_cities$city)){
   for(y in 1:length(norway_cities$city)){
   path = osrmRoute(src = norway_cities[x,], dst = norway_cities[y,])
@@ -54,6 +75,8 @@ st_write(route,dsn = paste0(project,"/output/route.shp"))
 st_write(norway_cities,dsn = paste0(project,"/output/norway_cities.shp"))
 
 # Make a shinyApp out of it ------------------------------------------
+# One needs to have a rsconnect() account and tokens
+# rsconnect::setAccountInfo(name='dz683z-mateo', token=<TOKEN>, secret=<SECRET>)
 
 setwd(project)
 runApp()
