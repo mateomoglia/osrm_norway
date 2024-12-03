@@ -8,7 +8,7 @@ This project uses the `orsm` package in R and computes distances and times betwe
 
 ## How to compute distances?
 
-The package only needs origins and destinations in `sf` format.
+The package only needs origins and destinations in `sf` format. The function `omRoute()` takes two `POINT` geometries and compute the route between both and outputs a `sf` file containing the road, the length and the time of travel (in minutes). 
 
 ## Output
 
