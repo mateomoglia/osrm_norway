@@ -14,4 +14,4 @@ The package only needs origins and destinations in `sf` format.
 
 The output is either in matrix format, but also in shapefile.
 
-This ShinyApp [here](https://dz683z-mateo.shinyapps.io/osrm_norway) shows the result!
+This ShinyApp [here](https://dz683z-mateo.shinyapps.io/osrm_norway) shows the resul
